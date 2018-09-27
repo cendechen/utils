@@ -1,7 +1,7 @@
 {
   "name": "ce-utils",
-  "version": "1.0.0",
-  "description": "utils function ",
+  "version": "1.0.1",
+  "description": "移动端开发常用工具函数库",
   "main": "dist/main.js",
   "scripts": {
     "dev": "webpack-dev-server --config ./webpack.dev.conf.js",
