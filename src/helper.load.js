@@ -3,7 +3,7 @@ import base from './helper.base.js'
  * 管理一个异步资源加载器
  */
 var createLinks = function (links) {
-  return Promise((r, j) => {
+  return new Promise((r, j) => {
     var link = document.createElement('link')
     var head = document.querySelector('head')[0]
     link.rel = 'stylesheet'
@@ -61,7 +61,8 @@ var createScripts = (function () {
 })()
 
 var createScript = function (links) {
-  return Promise((r, j) => {
+  return new Promise((r, j) => {
+    var head = document.querySelector('head')[0]
     var script = document.createElement('script')
     script.setAttribute('type', 'text/javascript')
     script.onload = () => {
@@ -76,6 +77,7 @@ var createScript = function (links) {
       j(new Error(`${links}资源加载失败`))
     }
     script.setAttribute('src', links)
+    head.appendChild(script)
   })
 }
 var helper = {
@@ -111,7 +113,7 @@ var helper = {
     }
     if (base.isArray(links)) {
       // 需要队列的化的加载js,js会有依赖顺序
-      return Promise ((r, j) => {
+      return new Promise ((r, j) => {
         createScripts(links, () => {
           r()
         })
