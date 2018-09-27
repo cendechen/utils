@@ -5,7 +5,7 @@ import url from './helper.url.js'
 import dom from './helper.dom.js'
 
 var helper = {
-  ...base,
+  base,
   load,
   tools,
   url,

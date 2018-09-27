@@ -56,3 +56,8 @@ import helper from 'ce-utils/src/helper.base.js'
 
 * getRandomStr(length = 10)
 > 获取随即串 默认获取10位
+
+### helper.url
+
+* getParam(key)
+> 获取url上的参数

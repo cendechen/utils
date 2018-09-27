@@ -21,6 +21,11 @@ var helper = {
     }
     return false
   },
+  /**
+   * [isNull description]
+   * @param  {[type]}  v [description]
+   * @return {Boolean}   [description]
+   */
   isNull (v) {
     if (typeof v === 'object' && v === null) {
       return true
@@ -67,18 +72,22 @@ var helper = {
    */
   extend (target, ...args) {
     for (var i = 0; i < args.length; i++) {
-      for (var cur in current[i]) {
-        if (helper.isArray(current[cur])) {
-          target[cur] = helper.cloneArray(current[cur])
-        } else if (helper.isPlainObject(current[cur])) {
-          target[cur] = helper.cloneObject(current[cur])
+      for (var cur in args[i]) {
+        if (helper.isArray(args[i][cur])) {
+          target[cur] = helper.cloneArray(args[i][cur])
+        } else if (helper.isPlainObject(args[i][cur])) {
+          target[cur] = helper.cloneObject(args[i][cur])
         } else {
-          target[cur] = current[cur]
+          target[cur] = args[i][cur]
         }
       }
     }
     return target
   },
+  /**
+   * 空函数
+   * @return {[type]} [description]
+   */
   noop () { // 空函数
     return function () {}
   }
