@@ -5,7 +5,7 @@ import base from './helper.base.js'
 var createLinks = function (links) {
   return new Promise((r, j) => {
     var link = document.createElement('link')
-    var head = document.querySelector('head')[0]
+    var head = document.querySelector('head')
     link.rel = 'stylesheet'
     link.href = links
     link.onload = () => {
@@ -32,12 +32,13 @@ var createScripts = (function () {
       // 加载成功
       callback()
     } else {
-      createScript(queue[currentIndex++])
+      createScript(queue[currentIndex])
+      currentIndex++
     }
   }
   function createScript(links) {
     var script = document.createElement('script')
-    var head = document.querySelector('head')[0]
+    var head = document.querySelector('head')
     script.type = 'type/javascript'
     script.onload = function() {
       // 再次加载
@@ -62,21 +63,21 @@ var createScripts = (function () {
 
 var createScript = function (links) {
   return new Promise((r, j) => {
-    var head = document.querySelector('head')[0]
+    var head = document.querySelector('head')
     var script = document.createElement('script')
     script.setAttribute('type', 'text/javascript')
     script.onload = () => {
       r()
     }
-    script.onreadystatechange = () => {
-      if (script.readyState === 'loaded' || script.readyState === 'complete') {
+    script.onreadystatechange = function () {
+      if (this.readyState === 'loaded' || this.readyState === 'complete') {
         r()
       }
     }
     script.onerror = () => {
       j(new Error(`${links}资源加载失败`))
     }
-    script.setAttribute('src', links)
+    script.src = links
     head.appendChild(script)
   })
 }
@@ -88,13 +89,13 @@ var helper = {
    */
   loadCss (links) {
     if (!links) {
-      return // 没有资源不需要加载
+      return Promise.resolve() // 没有资源不需要加载
     }
-    if (helper.isString(links)) {
+    if (base.isString(links)) {
       // 直接加载数据
       return createLinks(links)
     }
-    if (helper.isArray(links)) {
+    if (base.isArray(links)) {
       var allPormise = []
       links.forEach(d => {
         allPormise.push(createLinks(d))
@@ -109,7 +110,7 @@ var helper = {
    */
   loadScript (links) {
     if (!links) {
-      return
+      return Promise.resolve()
     }
     if (base.isArray(links)) {
       // 需要队列的化的加载js,js会有依赖顺序
