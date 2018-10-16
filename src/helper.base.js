@@ -1,6 +1,35 @@
 var helper = {
+  /**
+   * 判断是否是一个字符串
+   * @param  {[type]}  v [description]
+   * @return {Boolean}   判断是否字符串
+   */
   isString (v) {
     return typeof v === 'string'
+  },
+  /**
+   * 判断是否字符串
+   * @param  {[type]}  v [description]
+   * @return {Boolean}   [description]
+   */
+  isBoolean (v) {
+    return typeof v === 'boolean'
+  },
+  /**
+   * 判断是否NaN
+   * @param  {[type]}  v [description]
+   * @return {Boolean}   [description]
+   */
+  isNaN (v) {
+    return isNaN(v)
+  },
+  /**
+   * 判断是否number
+   * @param  {[type]}  v [description]
+   * @return {Boolean}   [description]
+   */
+  isNumber (v) {
+    return typeof v === 'number' && (!helper.isNaN(v))
   },
   /**
    * 检验是否是数组
@@ -32,11 +61,38 @@ var helper = {
     }
     return false
   },
+  /**
+   * 判断是不是一个简单对象
+   * @param  {[type]}  v [description]
+   * @return {Boolean}   [description]
+   */
   isPlainObject (v) {
     return Object.prototype.toString.call(v) === '[object Object]'
   },
+  /**
+   * 判断是不是函数
+   * @param  {[type]}  v [description]
+   * @return {Boolean}   [description]
+   */
   isFunction (v) {
     return Object.prototype.toString.call(v) === '[object Function]'
+  },
+  /**
+   * 判断除0以外, null undefined NaN ''
+   * @param  {[type]}  v [description]
+   * @return {Boolean}   [description]
+   */
+  isEmpty (v) {
+    if (helper.isNull(v)) {
+      return true
+    }
+    if (helper.isUndefined(v)) {
+      return true
+    }
+    if (helper.isString(v) && v === '') {
+      return true
+    }
+    return false
   },
   /**
    * 数组拷贝
