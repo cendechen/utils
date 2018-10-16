@@ -6,21 +6,30 @@
 ```
 npm install ce-utils --save
 // 全局加载
-import utils from 'ce-utils'
+import helper from 'ce-utils'
+helper.base.isString('test string')
 // 单文件引用
 import helper from 'ce-utils/src/helper.base.js'
+helper.isString('test string')
+
 ```
 
 ###helper.base
 
 * isString
 > 判断是否是字符
+* isNumber
+> 判断是否标准的数字，不是NaN
+* isNaN
+> 判断是否标准的NaN
 * isArray
 > 判断是否是数组
 * isUndefined
 > 判断是否是undefined
 * isNull
 > 判断是否是null
+* isEmpty
+> 判断是否 null、undefined、''、NaN
 * isPlainObject
 > 判断是否一个键值对象
 * isFunction
@@ -40,6 +49,8 @@ import helper from 'ce-utils/src/helper.base.js'
 > 加载css文件(target: string|array)
 * loadScript(target)
 > 加载js文件(target: string|array)
+
+加载函数都是返回promise对象
 
 ### helper.dom
 

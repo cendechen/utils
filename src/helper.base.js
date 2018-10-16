@@ -89,6 +89,9 @@ var helper = {
     if (helper.isUndefined(v)) {
       return true
     }
+    if (helper.isNaN(v)) {
+      return true
+    }
     if (helper.isString(v) && v === '') {
       return true
     }
